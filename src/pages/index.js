@@ -4,9 +4,11 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import "../styles/global.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faInstagram, faFacebook, faYoutube ,faMarkdown} from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin, faInstagram, faFacebook, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { FaArrowDown } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa6";
+import { CgArrowTopRight } from "react-icons/cg";
 
-// import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import logo from '../images/logo.png';
 import logoWhite from '../images/logo-2.png';
 
@@ -37,7 +39,7 @@ const IndexPage = ({ data }) => {
   const assets = data.allAssetsJson.nodes;
   const images = data.allFile.edges;
   const [hovered, setHovered] = useState(null);
-
+  const [readMoreHovered, setReadMoreHovered] = useState(false);
   const getImageByName = (name) => {
     const image = images.find(image => image.node.relativePath === name);
     return image ? getImage(image.node.childImageSharp) : null;
@@ -54,7 +56,7 @@ const IndexPage = ({ data }) => {
     <div>
       <header className="absolute w-full z-10">
         <div className="bg-transparent w-[95%] mx-auto text-white p-4 flex justify-between items-center">
-          <img src={logoWhite} alt="Samagra Logo" className="w-36 h-auto" />
+          <img src={logoWhite} alt="Samagra Logo" className="w-44 h-auto" />
           <nav>
             <ul className="flex space-x-6">
               <li className="hover:text-gray-400 cursor-pointer">Our Programs</li>
@@ -66,7 +68,7 @@ const IndexPage = ({ data }) => {
             </ul>
           </nav>
         </div>
-        <hr className="block border-t-2 w-[95%] mx-auto border-white w-full mt-4" />
+        <hr className="block border-t-2 w-[95%] mx-auto border-white  mt-4" />
       </header>
       <main>
         <section className="relative text-center h-screen overflow-hidden">
@@ -75,7 +77,7 @@ const IndexPage = ({ data }) => {
             <h1 className="text-8xl font-bold text-white">Our Assets</h1>
             <div className="absolute bottom-8 right-8 flex flex-col items-center cursor-pointer" onClick={handleScrollDown}>
               <div className="rounded-full border-2 border-white p-2 mb-2">
-                <FontAwesomeIcon icon={faMarkdown} className="text-white h-6 w-6" />
+                <FaArrowDown className="text-white h-6 w-6" />
               </div>
               <span className="text-white">Scroll Down</span>
             </div>
@@ -89,32 +91,55 @@ const IndexPage = ({ data }) => {
           </p>
           <div className="flex justify-center items-center">
             <img src={logoWhite} alt="Hover Logo" className="w-12 h-auto" />
-            <p className="ml-2 ">👆 Hover on the logo to know more about it</p>
+            <p className="ml-2 text-xl text-gray-600 ">👆 Hover on the logo to know more about it</p>
           </div>
         </section>
-        <section className="p-8">
-          <div className="flex justify-around flex-wrap mt-8">
+
+
+        <section className="p-8 w-[90%] mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-0">
             {assets.map((asset, index) => (
-              <div
-                key={index}
-                className="border border-gray-300 shadow-lg p-4 m-4 w-full sm:w-1/2 md:w-1/4 text-center relative transition duration-300 ease-in-out transform hover:shadow-xl ring-2 ring-transparent hover:ring-custom-orange"
-                onMouseEnter={() => setHovered(index)}
-                onMouseLeave={() => setHovered(null)}
-              >
-                <img src={asset.logo} alt={asset.title} className="w-full" />
-                <h3 className="text-xl font-semibold mt-2">{asset.title}</h3>
-                {hovered === index && (
-                  <div className="absolute inset-0 bg-white bg-opacity-90 flex flex-col justify-center items-center p-4">
-                    <p className="text-gray-600 mb-2">{asset.description}</p>
-                    <a href={asset.link} className="text-blue-500">
-                      Read more &rarr;
-                    </a>
-                  </div>
-                )}
+              <div key={index} className="p-12 border border-red-200">
+                <div
+                  className="border h-[100%] border-red-300 shadow-xl p-12 text-center relative transition duration-300 ease-in-out transform hover:shadow-xl hover:ring-1 hover:ring-red-300 hover:ring-opacity-50 rounded-lg"
+                  onMouseEnter={() => setHovered(index)}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <img src={asset.logo} alt={asset.title} className="w-full h-auto mb-4" />
+                  {hovered === index && (
+                    <div className="absolute inset-0 bg-white  flex flex-col justify-center items-center p-4 transition-opacity duration-1000 ease-in opacity-100 rounded-lg">
+                      <img src={asset.logo} alt={asset.title} className="w-1/4 h-auto mb-4" />
+
+                      <p className="text-black mb-4 font-normal text-xl w-[90%] mx-auto ">{asset.description}</p>
+                      <a
+                        href={asset.link}
+                        className="text-blue-500 flex items-center justify-center gap-1 relative"
+                        onMouseEnter={() => setReadMoreHovered(true)}
+                        onMouseLeave={() => setReadMoreHovered(false)}
+                      >
+                        <span className={`hover:underline  ${readMoreHovered ? "underline" : ""}`}>
+                          Read more
+                        </span>
+                        <span className=" mt-1">
+                          {readMoreHovered ? (
+                            <FaArrowRight className="underline transition-all duration-300" />
+                          ) : (
+                            <CgArrowTopRight className=" transition-all duration-300" />
+                          )}
+                        </span>
+                      </a>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         </section>
+
+
+
+
+
       </main>
       <footer className="bg-white text-black p-8">
         <div className="max-w-7xl mx-auto flex justify-between items-start space-y-4 md:space-y-0 md:flex-row flex-col">
