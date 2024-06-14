@@ -5,7 +5,7 @@ import "../styles/global.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faInstagram, faFacebook, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { FaArrowDown } from "react-icons/fa6";
+import { FaAngleDown, FaArrowDown } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa6";
 import { CgArrowTopRight } from "react-icons/cg";
 
@@ -39,6 +39,8 @@ const IndexPage = ({ data }) => {
   const assets = data.allAssetsJson.nodes;
   const images = data.allFile.edges;
   const [hovered, setHovered] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const [readMoreHovered, setReadMoreHovered] = useState(false);
   const getImageByName = (name) => {
     const image = images.find(image => image.node.relativePath === name);
@@ -54,13 +56,29 @@ const IndexPage = ({ data }) => {
 
   return (
     <div>
+
+
       <header className="absolute w-full z-10">
         <div className="bg-transparent w-[95%] mx-auto text-white p-4 flex justify-between items-center">
           <img src={logoWhite} alt="Samagra Logo" className="w-44 h-auto" />
           <nav>
             <ul className="flex space-x-6">
+              <li className="flex cursor-pointer items-center" onClick={() => setShowDropdown(!showDropdown)}>
+                Our Impact
+                <FaAngleDown className="ml-1" />
+              </li>
+              {/* Dropdown menu */}
+
+              {showDropdown && (
+                <ul className="absolute  top-full  bg-white text-gray-800 border  border-gray-300  py-2 shadow-lg">
+                  {/* Example links */}
+                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Agriculture</li>
+                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Education</li>
+                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Fellowships</li>
+                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Health</li>
+                </ul>
+              )}
               <li className="hover:text-gray-400 cursor-pointer">Our Programs</li>
-              <li className="hover:text-gray-400 cursor-pointer">Our Impact</li>
               <li className="hover:text-gray-400 cursor-pointer">SamagraX</li>
               <li className="hover:text-gray-400 cursor-pointer">About Us</li>
               <li className="hover:text-gray-400 cursor-pointer">Our Assets</li>
@@ -68,8 +86,12 @@ const IndexPage = ({ data }) => {
             </ul>
           </nav>
         </div>
-        <hr className="block border-t-2 w-[95%] mx-auto border-white  mt-4" />
+        <hr className="block border-t-2 w-[95%] mx-auto border-white mt-4" />
+
       </header>
+
+
+
       <main>
         <section className="relative text-center h-screen overflow-hidden">
           <img src='https://res.cloudinary.com/dxr2a2zrx/image/upload/v1718295434/yd5krooiw7v04pzvyyuk.jpg' alt="Banner" className="absolute inset-0 w-full h-full object-cover" style={{ backgroundAttachment: 'fixed' }} />
@@ -141,8 +163,8 @@ const IndexPage = ({ data }) => {
 
 
       </main>
-      <footer className="bg-white text-black p-8">
-        <div className="max-w-7xl mx-auto flex justify-between items-start space-y-4 md:space-y-0 md:flex-row flex-col">
+      <footer className="bg-white text-black pt-12 px-8 border-t border-red-200 mt-8">
+        <div className="max-w-7xl mx-auto flex justify-between pb-12 items-start space-y-4 md:space-y-0 md:flex-row flex-col">
           <div>
             <img src={logo} alt="Samagra Logo" className="w-56 h-auto mb-4" />
             <address className="not-italic">
@@ -152,7 +174,7 @@ const IndexPage = ({ data }) => {
           </div>
           <div className="flex space-x-8">
             <div>
-              <h4 className="font-bold mb-2">About Us</h4>
+              <h4 className="font-semibold mb-2 text-yellow-500">About Us</h4>
               <ul>
                 <li>Team</li>
                 <li>News</li>
@@ -161,7 +183,7 @@ const IndexPage = ({ data }) => {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-2">Governance+</h4>
+              <h4 className="font-semibold mb-2 text-yellow-500">Governance+</h4>
               <ul>
                 <li>Amrit Series</li>
                 <li>Governance Decluttered</li>
@@ -170,25 +192,25 @@ const IndexPage = ({ data }) => {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-2">Events & Initiatives</h4>
+              <h4 className="font-semibold mb-2 text-yellow-500">Events & Initiatives</h4>
               <ul>
                 <li>Code for GovTech (C4GT)</li>
                 <li>The Governance Challenge (TGC)</li>
               </ul>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold mb-2">Follow Us</h4>
-            <div className="flex space-x-4">
-              <a href="#"><FontAwesomeIcon icon={faLinkedin} className="w-6 h-6" /></a>
-              <a href="#"><FontAwesomeIcon icon={faInstagram} className="w-6 h-6" /></a>
-              <a href="#"><FontAwesomeIcon icon={faFacebook} className="w-6 h-6" /></a>
-              <a href="#"><FontAwesomeIcon icon={faYoutube} className="w-6 h-6" /></a>
+              <div className="mt-4">
+                <h4 className="font-semibold mb-2 text-yellow-500">Follow Us</h4>
+                <div className="flex space-x-4">
+                  <a href="#"><FontAwesomeIcon icon={faLinkedin} className="w-6 h-6" /></a>
+                  <a href="#"><FontAwesomeIcon icon={faInstagram} className="w-6 h-6" /></a>
+                  <a href="#"><FontAwesomeIcon icon={faFacebook} className="w-6 h-6" /></a>
+                  <a href="#"><FontAwesomeIcon icon={faYoutube} className="w-6 h-6" /></a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="text-center mt-4">
-          <p>&copy; 2024 Samagra Development Associates Pvt. Ltd. <a href="#" className="text-gray-500">CSR</a></p>
+        <div className="text-center my-4 pt-4 border-t border-gray-200">
+          <p className="text-gray-600">&copy; 2024 Samagra Development Associates Pvt. Ltd. <a href="#" className="text-gray-500 underline">CSR</a></p>
         </div>
       </footer>
     </div>
