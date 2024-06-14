@@ -42,10 +42,7 @@ const IndexPage = ({ data }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const [readMoreHovered, setReadMoreHovered] = useState(false);
-  const getImageByName = (name) => {
-    const image = images.find(image => image.node.relativePath === name);
-    return image ? getImage(image.node.childImageSharp) : null;
-  };
+
 
   const handleScrollDown = () => {
     window.scrollTo({
@@ -62,27 +59,28 @@ const IndexPage = ({ data }) => {
         <div className="bg-transparent w-[95%] mx-auto text-white p-4 flex justify-between items-center">
           <img src={logoWhite} alt="Samagra Logo" className="w-44 h-auto" />
           <nav>
-            <ul className="flex space-x-6">
-              <li className="flex cursor-pointer items-center" onClick={() => setShowDropdown(!showDropdown)}>
+            <ul className="flex gap-x-14">
+              <li className={`flex cursor-pointer items-center hover:font-bold ${showDropdown ? "font-bold" : ""}`} onClick={() => setShowDropdown(!showDropdown)}>
                 Our Impact
                 <FaAngleDown className="ml-1" />
               </li>
+
               {/* Dropdown menu */}
 
               {showDropdown && (
-                <ul className="absolute  top-full  bg-white text-gray-800 border  border-gray-300  py-2 shadow-lg">
+                <ul className="absolute  top-full w-[200px]  bg-white text-gray-800 border  border-gray-300  py-2 shadow-lg">
                   {/* Example links */}
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Agriculture</li>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Education</li>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Fellowships</li>
-                  <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Health</li>
+                  <li className="flex px-4 py-2 hover:bg-gray-100 cursor-pointer">Agriculture</li>
+                  <li className="flex px-4 py-2 hover:bg-gray-100 cursor-pointer">Education</li>
+                  <li className="flex px-4 py-2 hover:bg-gray-100 cursor-pointer">Fellowships</li>
+                  <li className="flex px-4 py-2 hover:bg-gray-100 cursor-pointer">Health</li>
                 </ul>
               )}
-              <li className="hover:text-gray-400 cursor-pointer">Our Programs</li>
-              <li className="hover:text-gray-400 cursor-pointer">SamagraX</li>
-              <li className="hover:text-gray-400 cursor-pointer">About Us</li>
-              <li className="hover:text-gray-400 cursor-pointer">Our Assets</li>
-              <li className="hover:text-gray-400 cursor-pointer">Ecosystem Initiatives</li>
+              <li className="hover:font-bold cursor-pointer">Our Programs</li>
+              <li className="hover:font-bold cursor-pointer">SamagraX</li>
+              <li className="hover:font-bold cursor-pointer">About Us</li>
+              <li className="hover:font-bold cursor-pointer">Our Assets</li>
+              <li className="hover:font-bold cursor-pointer">Ecosystem Initiatives</li>
             </ul>
           </nav>
         </div>
