@@ -6,6 +6,15 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `assets`,
+        path: `${__dirname}/content/assets`,
+      },
+    },
+    `gatsby-transformer-remark`,
+    `gatsby-plugin-netlify-cms`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `images`,
         path: `${__dirname}/src/images/`,
       },

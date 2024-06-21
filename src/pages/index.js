@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
-import Header from '../Components/Header';
-import HeroSection from '../Components/HeroSection';
-import AssetsSection from '../Components/AssetsSection';
-import Footer from '../Components/Footer';
+import Header from '../components/Header';
+import HeroSection from '../components/HeroSection';
+import AssetsSection from '../components/AssetsSection';
+import Footer from '../components/Footer';
 import '../styles/global.css';
-import logoWhite from '../images/logo-2.png'
+import logoWhite from '../images/logo-2.png';
+
 export const query = graphql`
-  query {
-    allAssetsJson {
-      nodes {
+query {
+  allMarkdownRemark(filter: { fields: { sourceName: { eq: "assets" } } }) {
+    nodes {
+      id
+      frontmatter {
         title
         description
         logo
@@ -17,10 +20,13 @@ export const query = graphql`
       }
     }
   }
+}
+
 `;
 
 const IndexPage = ({ data }) => {
-  const assets = data.allAssetsJson.nodes;
+  // Data is available, proceed to map nodes and extract asset data
+  const assets = data.allMarkdownRemark.nodes.map(node => node.frontmatter);
 
   const handleScrollDown = () => {
     window.scrollTo({

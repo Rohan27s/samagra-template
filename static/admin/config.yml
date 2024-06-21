@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: Rohan27s/samagra-template
+  branch: main
+
+media_folder: static/assets
+public_folder: /assets
+
+collections:
+  - name: assets
+    label: Assets
+    folder: content/assets
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title }
+      - { name: description, label: Description }
+      - { name: logo, label: Logo, widget: image }
+      - { name: link, label: Link }
