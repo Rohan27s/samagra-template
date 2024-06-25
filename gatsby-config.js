@@ -8,6 +8,7 @@ module.exports = {
       options: {
         name: `assets`,
         path: `${__dirname}/content/assets`,
+        ignore: [`**/\.*`],
       },
     },
     `gatsby-transformer-remark`,
