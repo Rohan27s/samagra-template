@@ -3,14 +3,14 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `assets`,
-        path: `${__dirname}/content/assets`,
-        ignore: [`**/\.*`],
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `assets`,
+    //     path: `${__dirname}/content/assets`,
+    //     ignore: [`**/\.*`],
+    //   },
+    // },
     `gatsby-transformer-remark`,
     `gatsby-plugin-netlify-cms`,
     {
