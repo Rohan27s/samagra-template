@@ -1,2 +1,2 @@
-[build.environment]
-    NODE_VERSION = "18.12.1"
+[build]
+  command = "npm install --legacy-peer-deps && npm run build"
